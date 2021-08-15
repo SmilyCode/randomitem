@@ -1,0 +1,9 @@
+name: SummonRandomItem
+version: ${project.version}
+main: smily.plugin.summonrandomitem.SummonRandomItem
+api-version: 1.17
+authors: [ SmilyKuy ]
+description: This plugin will let you spawn random item
+commands:
+  randomitem:
+    description: Set player target, start, stop, and clear the random item game here
