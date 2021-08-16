@@ -5,6 +5,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import org.springframework.context.ApplicationContext;
+import smily.plugin.summonrandomitem.PluginAnnotationConfiguration;
+import smily.plugin.summonrandomitem.PluginContext;
 import smily.plugin.summonrandomitem.data.RandomMaterial;
 import smily.plugin.summonrandomitem.data.RandomizerData;
 
@@ -13,7 +15,7 @@ public class RandomItem extends ItemStack{
     private int cooldown;
     private final Plugin plugin = Bukkit.getPluginManager().getPlugin("SummonRandomItem");
 
-    RandomizerData randomitem = new RandomMaterial();
+    RandomizerData randomitem = PluginContext.context.getBean(RandomMaterial.class);
 
     public void executeRandomize(Player player){
         assert (plugin != null);

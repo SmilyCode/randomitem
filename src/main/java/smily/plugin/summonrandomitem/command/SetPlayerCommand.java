@@ -7,7 +7,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.springframework.lang.NonNull;
+import smily.plugin.summonrandomitem.PluginContext;
 import smily.plugin.summonrandomitem.event.RandomItem;
+import smily.plugin.summonrandomitem.time.Minute;
+import smily.plugin.summonrandomitem.time.Second;
+import smily.plugin.summonrandomitem.time.Tick;
+import smily.plugin.summonrandomitem.time.TimeContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,9 +23,13 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
 
     Player targeted;
     boolean started;
+    RandomItem randomItem = PluginContext.context.getBean(RandomItem.class);
+    Minute minute = TimeContext.context.getBean(Minute.class);
+    Second second = TimeContext.context.getBean(Second.class);
+    Tick tick = TimeContext.context.getBean(Tick.class);
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NonNull CommandSender sender,@NonNull Command command,@NonNull String label, String[] args) {
 
         if (args.length == 0){
             if (sender instanceof Player){
@@ -54,36 +64,44 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                     if (targeted != null) {
                         if (args[1].equals("time")) {
                             if (args[2] != null) {
-                                if (args[3].equals("second")) {
-                                    started = true;
-                                    new RandomItem().executeRandomize(targeted);
-                                    if (sender instanceof Player) {
-                                        sender.sendMessage("game started");
-                                    } else {
-                                        System.out.println("game started");
-                                    }
-                                } else if (args[3].equals("minute")) {
-                                    started = true;
-                                    new RandomItem().executeRandomize(targeted);
-                                    if (sender instanceof Player) {
-                                        sender.sendMessage("game started");
-                                    } else {
-                                        System.out.println("game started");
-                                    }
-                                } else if (args[3].equals("tick")) {
-                                    started = true;
-                                    new RandomItem().executeRandomize(targeted);
-                                    if (sender instanceof Player) {
-                                        sender.sendMessage("game started");
-                                    } else {
-                                        System.out.println("game started");
-                                    }
-                                } else {
-                                    if (sender instanceof Player) {
-                                        sender.sendMessage("Format doesn't exist");
-                                    } else {
-                                        System.out.println("Format doesn't exist");
-                                    }
+                                switch (args[3]) {
+                                    case "second":
+                                        started = true;
+                                        randomItem.setCooldown(second.setTick(Integer.parseInt(args[2])));
+                                        randomItem.executeRandomize(targeted);
+                                        if (sender instanceof Player) {
+                                            sender.sendMessage("game started");
+                                        } else {
+                                            System.out.println("game started");
+                                        }
+                                        break;
+                                    case "minute":
+                                        started = true;
+                                        randomItem.setCooldown(minute.setTick(Integer.parseInt(args[2])));
+                                        randomItem.executeRandomize(targeted);
+                                        if (sender instanceof Player) {
+                                            sender.sendMessage("game started");
+                                        } else {
+                                            System.out.println("game started");
+                                        }
+                                        break;
+                                    case "tick":
+                                        started = true;
+                                        randomItem.setCooldown(tick.setTick(Integer.parseInt(args[2])));
+                                        randomItem.executeRandomize(targeted);
+                                        if (sender instanceof Player) {
+                                            sender.sendMessage("game started");
+                                        } else {
+                                            System.out.println("game started");
+                                        }
+                                        break;
+                                    default:
+                                        if (sender instanceof Player) {
+                                            sender.sendMessage("Format doesn't exist");
+                                        } else {
+                                            System.out.println("Format doesn't exist");
+                                        }
+                                        break;
                                 }
                             } else {
                                 if (sender instanceof Player) {
@@ -103,8 +121,8 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                 }
             }
         } else if (args.length == 1){
-
-            if (args[0].equals("clear")){
+            switch (args[0]){
+                case "clear":
                 if (targeted != null){
                     if (sender instanceof Player) {
                         sender.sendMessage("target cleared");
@@ -119,9 +137,9 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                         System.out.println("No one is targeted");
                     }
                 }
-            }
+                break;
 
-            if (args[0].equals("stop")){
+            case "stop":
                 if (started){
                     started = false;
                     Bukkit.getScheduler().cancelTasks(plugin);
@@ -137,8 +155,9 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                         System.out.println("cannot proceed, no game is running");
                     }
                 }
-            }
-            if (args[0].equals("start")) {
+                break;
+
+            case "start":
                 if (started) {
                     if (sender instanceof Player) {
                         sender.sendMessage("cannot proceed, game has started already");
@@ -162,6 +181,7 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                         }
                     }
                 }
+                break;
             }
         }
 
@@ -169,7 +189,7 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NonNull CommandSender sender,@NonNull Command command,@NonNull String alias, String[] args) {
         List<String> arguments = new ArrayList<>();
 
         if (args.length == 1){
@@ -181,6 +201,14 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
             for (Player a : Bukkit.getOnlinePlayers()){
                 arguments.add(a.getDisplayName());
             }
+            if (args[0].equals("start")) {
+                arguments.add("time");
+            }
+
+        }else if (args.length == 4){
+            arguments.add("tick");
+            arguments.add("second");
+            arguments.add("minute");
         }
 
         return arguments;

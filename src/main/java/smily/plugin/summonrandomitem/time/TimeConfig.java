@@ -15,4 +15,9 @@ public class TimeConfig {
     public Minute getMinute(){
         return new Minute();
     }
+
+    @Bean
+    public Tick getTick(){
+        return new Tick();
+    }
 }

@@ -7,5 +7,5 @@ public class Minute extends TimeContext implements Time {
     @Override
     public int setTick(int time) {
         return sec.setTick(time)*60;
-    };
+    }
 }
