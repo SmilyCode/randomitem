@@ -1,7 +1,6 @@
 package smily.plugin.summonrandomitem;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.springframework.lang.NonNull;
 import smily.plugin.summonrandomitem.command.SetPlayerCommand;
 
 public final class SummonRandomItem extends JavaPlugin {

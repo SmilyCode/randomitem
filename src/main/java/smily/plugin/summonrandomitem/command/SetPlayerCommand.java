@@ -13,7 +13,6 @@ import smily.plugin.summonrandomitem.event.RandomItem;
 import smily.plugin.summonrandomitem.time.Minute;
 import smily.plugin.summonrandomitem.time.Second;
 import smily.plugin.summonrandomitem.time.Tick;
-import smily.plugin.summonrandomitem.time.TimeContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +23,10 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
     Player targeted;
     boolean started;
     RandomItem randomItem = PluginContext.context.getBean(RandomItem.class);
-    Minute minute = TimeContext.context.getBean(Minute.class);
-    Second second = TimeContext.context.getBean(Second.class);
-    Tick tick = TimeContext.context.getBean(Tick.class);
+
+    Minute minute = PluginContext.context.getBean(Minute.class);
+    Second second = PluginContext.context.getBean(Second.class);
+    Tick tick = PluginContext.context.getBean(Tick.class);
 
     @Override
     public boolean onCommand(@NonNull CommandSender sender,@NonNull Command command,@NonNull String label, String[] args) {
@@ -167,11 +167,12 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                 } else {
                     if (targeted != null) {
                         started = true;
-                        new RandomItem().executeRandomize(targeted);
+                        randomItem.setCooldown(second.setTick(30));
+                        randomItem.executeRandomize(targeted);
                         if (sender instanceof Player) {
-                            sender.sendMessage("game started");
+                            sender.sendMessage("game started with 30 second cooldown");
                         } else {
-                            System.out.println("game started");
+                            System.out.println("game started with 30 second cooldown");
                         }
                     } else {
                         if (sender instanceof Player) {
@@ -198,8 +199,10 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
             arguments.add("clear");
             arguments.add("stop");
         } else if (args.length == 2){
-            for (Player a : Bukkit.getOnlinePlayers()){
-                arguments.add(a.getDisplayName());
+            if (args[0].equals("at")) {
+                for (Player a : Bukkit.getOnlinePlayers()) {
+                    arguments.add(a.getDisplayName());
+                }
             }
             if (args[0].equals("start")) {
                 arguments.add("time");

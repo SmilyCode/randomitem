@@ -11,15 +11,23 @@ public class RandomMaterial implements RandomizerData {
     private final List<Material> MAT = Collections.unmodifiableList(Arrays.asList(Material.values()));
     private final int SIZE = MAT.size();
     private final Random random = new Random();
+    private Material mat;
 
     @Override
     public Object getData() {
-        assert (getMaterial() != null);
-        return new ItemStack(getMaterial(),getRandomAmount());
+        return new ItemStack(mat,getRandomAmount());
     }
 
     private Material getMaterial(){
-        return MAT.get(random.nextInt(SIZE));
+        mat = MAT.get(random.nextInt(SIZE));
+        isMatAir(mat);
+        return mat;
+    }
+
+    private void isMatAir(Material mat){
+        if (mat.isAir()){
+            getMaterial();
+        }
     }
 
     @Override

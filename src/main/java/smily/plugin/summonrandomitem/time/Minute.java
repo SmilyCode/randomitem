@@ -1,8 +1,11 @@
 package smily.plugin.summonrandomitem.time;
 
-public class Minute extends TimeContext implements Time {
+import org.springframework.beans.factory.annotation.Autowired;
 
-    Second sec = context.getBean(Second.class);
+public class Minute implements Time {
+
+    @Autowired
+    Second sec;
 
     @Override
     public int setTick(int time) {
