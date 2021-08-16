@@ -1,14 +1,11 @@
 package smily.plugin.summonrandomitem.event;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.Plugin;
 import smily.plugin.summonrandomitem.data.RandomMaterial;
 import smily.plugin.summonrandomitem.data.RandomizerData;
-
-import java.util.Random;
 
 public class RandomItem extends ItemStack{
 
