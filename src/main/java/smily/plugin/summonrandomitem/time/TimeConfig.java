@@ -11,6 +11,7 @@ public class TimeConfig {
         return new Second();
     }
 
+    @Bean
     public Minute getMinute(){
         return new Minute();
     }
