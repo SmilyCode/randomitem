@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import smily.plugin.summonrandomitem.summon.RandomItem;
+import smily.plugin.summonrandomitem.event.RandomItem;
 
 import java.util.ArrayList;
 import java.util.List;

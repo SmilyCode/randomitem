@@ -1,8 +1,6 @@
-package smily.plugin.summonrandomitem.summon;
+package smily.plugin.summonrandomitem.event;
 
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class RandomItemTest {
 
