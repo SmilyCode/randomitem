@@ -2,21 +2,19 @@ package smily.plugin.summonrandomitem.data;
 
 
 import org.bukkit.Material;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
 public class RandomMaterial implements RandomizerData {
 
-    private List<Material> MAT = Collections.unmodifiableList(Arrays.asList(Material.values()));
-    private int SIZE = MAT.size();
-    private Random random = new Random();
-
-    Material mat;
+    private final List<Material> MAT = Collections.unmodifiableList(Arrays.asList(Material.values()));
+    private final int SIZE = MAT.size();
+    private final Random random = new Random();
 
     @Override
     public Object getData() {
+        assert (getMaterial() != null);
         return new ItemStack(getMaterial(),getRandomAmount());
     }
 

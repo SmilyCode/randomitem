@@ -53,7 +53,7 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                 } else {
                     if (targeted != null) {
                         started = true;
-                        new RandomItem().spawnItem(targeted);
+                        new RandomItem().executeRandomize(targeted);
                         if (sender instanceof Player) {
                             sender.sendMessage("game started");
                         } else {
