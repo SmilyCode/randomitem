@@ -78,6 +78,12 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                                     } else {
                                         System.out.println("game started");
                                     }
+                                } else {
+                                    if (sender instanceof Player) {
+                                        sender.sendMessage("Format doesn't exist");
+                                    } else {
+                                        System.out.println("Format doesn't exist");
+                                    }
                                 }
                             } else {
                                 if (sender instanceof Player) {
