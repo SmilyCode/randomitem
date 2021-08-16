@@ -28,11 +28,11 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                 System.out.println("There is not enough argument");
             }
         }
-        if (args.length == 2){
-            if (args[0].equals("at")){
+        if (args.length == 2) {
+            if (args[0].equals("at")) {
                 Player target = Bukkit.getPlayerExact(args[1]);
 
-                if (target != null){
+                if (target != null) {
                     if (sender instanceof Player) {
                         sender.sendMessage(target.getDisplayName() + " targeted");
                     } else {
@@ -42,8 +42,8 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                 }
             }
 
-        } else if (args.length == 1){
-            if (args[0].equals("start")) {
+        } else if (args.length == 3||args.length == 4){
+             if (args[0].equals("start")) {
                 if (started) {
                     if (sender instanceof Player) {
                         sender.sendMessage("cannot proceed, game has started already");
@@ -52,12 +52,40 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                     }
                 } else {
                     if (targeted != null) {
-                        started = true;
-                        new RandomItem().executeRandomize(targeted);
-                        if (sender instanceof Player) {
-                            sender.sendMessage("game started");
-                        } else {
-                            System.out.println("game started");
+                        if (args[1].equals("time")) {
+                            if (args[2] != null) {
+                                if (args[3].equals("second")) {
+                                    started = true;
+                                    new RandomItem().executeRandomize(targeted);
+                                    if (sender instanceof Player) {
+                                        sender.sendMessage("game started");
+                                    } else {
+                                        System.out.println("game started");
+                                    }
+                                } else if (args[3].equals("minute")) {
+                                    started = true;
+                                    new RandomItem().executeRandomize(targeted);
+                                    if (sender instanceof Player) {
+                                        sender.sendMessage("game started");
+                                    } else {
+                                        System.out.println("game started");
+                                    }
+                                } else if (args[3].equals("tick")) {
+                                    started = true;
+                                    new RandomItem().executeRandomize(targeted);
+                                    if (sender instanceof Player) {
+                                        sender.sendMessage("game started");
+                                    } else {
+                                        System.out.println("game started");
+                                    }
+                                }
+                            } else {
+                                if (sender instanceof Player) {
+                                    sender.sendMessage("time cannot be null");
+                                } else {
+                                    System.out.println("time cannot be null");
+                                }
+                            }
                         }
                     } else {
                         if (sender instanceof Player) {
@@ -68,6 +96,7 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                     }
                 }
             }
+        } else if (args.length == 1){
 
             if (args[0].equals("clear")){
                 if (targeted != null){
@@ -100,6 +129,31 @@ public class SetPlayerCommand implements CommandExecutor, TabCompleter{
                         sender.sendMessage("cannot proceed, no game is running");
                     } else {
                         System.out.println("cannot proceed, no game is running");
+                    }
+                }
+            }
+            if (args[0].equals("start")) {
+                if (started) {
+                    if (sender instanceof Player) {
+                        sender.sendMessage("cannot proceed, game has started already");
+                    } else {
+                        System.out.println("cannot proceed, game has started already");
+                    }
+                } else {
+                    if (targeted != null) {
+                        started = true;
+                        new RandomItem().executeRandomize(targeted);
+                        if (sender instanceof Player) {
+                            sender.sendMessage("game started");
+                        } else {
+                            System.out.println("game started");
+                        }
+                    } else {
+                        if (sender instanceof Player) {
+                            sender.sendMessage("No one is targeted");
+                        } else {
+                            System.out.println("No one is targeted");
+                        }
                     }
                 }
             }
