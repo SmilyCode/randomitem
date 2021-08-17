@@ -1,13 +1,13 @@
 # Random Item Spawn
 
-This is a spigot plugin that lets you spawn random item in your world!
+This is a Spigot Plugin that lets you spawn Random Item in your world!
 
 ## How to use
-- first, use the command `/randomitem at <targeted player>`. To declare the targeted player (the current update only works at player)
-- type command `/randomitem start` and random things will spawn, the default cooldown is 30 second
-- you can set cooldown by setting `/randomitem start <time> <number> <unit>`
-- you can stop the game by typing `/randomitem stop`
-- to remove and clear targeted player use `/randomitem clear`
+- First, use the command `/randomitem at <targeted player>`. To declare a targeted player (the current update Only Works at Player)
+- Type command `/randomitem start` and random things will Spawn, the Default cooldown is 30 Second
+- You can Set Cooldown by typing `/randomitem start <time> <number> <unit>`
+- You can Stop the game by typing `/randomitem stop`
+- To Remove and Clear targeted player use `/randomitem clear`
 
 ## Commands:
 - `/randomitem at <targeted player>`
@@ -16,4 +16,5 @@ This is a spigot plugin that lets you spawn random item in your world!
 - `/randomitem stop`
 - `/randomitem clear`
 
-This plugin is always free and will continue to bring update in the future.
+This plugin is always Free and will continue to bring update in the future.
+> Hopefully
